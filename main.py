@@ -80,9 +80,22 @@ def reload_list(message):
 def send_reminder():
     while True:
         today = datetime.today()
-        f = open("disconects.txt", "r")
-        res = f.read()
-
+        res = ''
+        try:
+            f = open("disconects.txt", "r")
+            res = f.read()
+        except FileNotFoundError:
+            f = open("disconects.txt", "w")
+            f.close()
+        
+        if res == '':
+            result_dict, result = load_disconnects()
+            f = open("disconects.txt", "w")
+            f.write(f"{today.day}.{today.month}:{result}")
+            f.close()
+            f = open("disconects.txt", "r")
+            res = f.read()
+            
         date_log = res.split(':')[0]
         disconnections = res.split(':')[1]
 
