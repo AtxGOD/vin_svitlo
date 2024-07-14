@@ -79,7 +79,7 @@ def reload_list(message):
 
 def send_reminder():
     while True:
-        today = datetime.today()
+        today = datetime.today() + timedelta(hours=3)
         res = ''
         try:
             f = open("disconects.txt", "r")
