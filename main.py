@@ -118,7 +118,6 @@ def reload_list(message):
 def send_reminder():
     while True:
         for member in MEMBERS:
-            sleep(5)
             today = datetime.today() + timedelta(hours=3)
             res = ''
             try:
@@ -138,6 +137,7 @@ def send_reminder():
 
             date_log = res.split(':')[0]
             disconnections = res.split(':')[1]
+            result_dict, result = False, False
 
             if today.minute % 10 == 0:
                 result_dict, result = load_disconnects(MEMBERS[member][1])
@@ -151,7 +151,8 @@ def send_reminder():
                     bot.send_message(member, result)
 
             if today.minute == 30:
-                result_dict, result = load_disconnects(MEMBERS[member][1])
+                if not result_dict:
+                    result_dict, result = load_disconnects(MEMBERS[member][1])
                 if int(date_log.split('.')[0]) == today.day and today.hour != 23:
                     status_before = result_dict[str(today.hour) if len(str(today.hour)) > 1 else '0' + str(today.hour)]
                     status = result_dict[str(today.hour+1) if len(str(today.hour+1)) > 1 else '0' + str(today.hour+1)]
