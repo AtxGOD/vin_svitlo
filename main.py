@@ -109,6 +109,8 @@ def send_reminder():
                 result = prepare_to_send(result)
                 bot.send_message(576030168, 'Графік змінився!')
                 bot.send_message(576030168, result)
+                bot.send_message(5864394563, 'Графік змінився!')
+                bot.send_message(5864394563, result)
 
         if today.minute == 30:
             result_dict, result = load_disconnects()
@@ -125,13 +127,17 @@ def send_reminder():
 
             if status == 'disconnect_100' and status_before != 'disconnect_100':
                 bot.send_message(576030168, 'Через пів години вимкнуть світло 🕯')
+                bot.send_message(5864394563, 'Через пів години вимкнуть світло 🕯')
             elif status == 'disconnect_50' and status_before != 'disconnect_50':
                 bot.send_message(576030168, 'Через пів години можливо вимкнуть світло 🕯')
+                bot.send_message(5864394563, 'Через пів години можливо вимкнуть світло 🕯')
             elif status == 'no_disconnect':
                 if status_before == 'disconnect_100':
                     bot.send_message(576030168, 'Через пів години увімкнуть світло 💡')
+                    bot.send_message(5864394563, 'Через пів години увімкнуть світло 💡')
                 elif status_before == 'disconnect_50':
                     bot.send_message(576030168, 'Якщо світло вимикали, через пів години увімкнуть світло 💡')
+                    bot.send_message(5864394563, 'Якщо світло вимикали, через пів години увімкнуть світло 💡')
 
         sleep(40)
 
