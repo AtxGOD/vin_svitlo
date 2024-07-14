@@ -66,10 +66,17 @@ def prepare_to_send(text):
 
 
 def load_disconnects(data):
-    resp = requests.post(
-        'https://voe.com.ua/disconnection/detailed?ajax_form=1&_wrapper_format=drupal_ajax&_wrapper_format=drupal_ajax',
-        data=data
-    )
+    resp = False
+    for i in range(5):
+        resp = requests.post(
+            'https://voe.com.ua/disconnection/detailed?ajax_form=1&_wrapper_format=drupal_ajax&_wrapper_format=drupal_ajax',
+            data=data
+        )
+        if resp.status_code == 200:
+            break
+        else:
+            print('sleep(2)')
+            sleep(2)
 
     res_payload_dict = resp.json()
     data = res_payload_dict[-1]['data']
@@ -174,7 +181,7 @@ def send_reminder():
                     elif status_before == 'disconnect_50':
                         bot.send_message(member, 'Якщо світло вимикали, через пів години увімкнуть світло 💡')
 
-        sleep(35)
+        sleep(30)
 
 
 t = threading.Thread(target=send_reminder)
