@@ -54,7 +54,22 @@ MEMBERS = {
                     '_triggering_element_value': 'Показати',
                     '_drupal_ajax': 1,
                     'ajax_page_state[theme]': 'personal',
-                }]
+                }],
+    1461586134: ['ala', {
+                    'search_type': 0,
+                    'city': 'м. Вінниця (Вінницька Область/М.Вінниця)',
+                    'city_id': 510100000,
+                    'street': 'вулиця Данила Галицького',
+                    'street_id': 1078,
+                    'house': 16,
+                    'house_id': 31703,
+                    'form_build_id': 'form-nqpbXmqhUp57lGVhqo5rhltagaBSRor-KnOiWau8H0M',
+                    'form_id': 'disconnection_detailed_search_form',
+                    '_triggering_element_name': 'op',
+                    '_triggering_element_value': 'Показати',
+                    '_drupal_ajax': 1,
+                    'ajax_page_state[theme]': 'personal',
+                }],
 }
 
 
@@ -115,11 +130,11 @@ def load_disconnects(data):
 
 @bot.message_handler(commands=['load'])
 def reload_list(message):
+    print('message.chat.id', message.chat.id)
     result_dict, result = load_disconnects(MEMBERS[message.chat.id][1])
     result = prepare_to_send(result)
 
     bot.send_message(message.chat.id, result)
-    print('message.chat.id', message.chat.id)
 
 
 def send_reminder():
