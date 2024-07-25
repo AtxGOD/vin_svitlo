@@ -140,6 +140,7 @@ def reload_list(message):
 def send_reminder():
     while True:
         for member in MEMBERS:
+            print(f'start send to member: {member}')
             today = datetime.today() + timedelta(hours=3)
             res = ''
             try:
@@ -195,6 +196,8 @@ def send_reminder():
                         bot.send_message(member, 'Через пів години увімкнуть світло 💡')
                     elif status_before == 'disconnect_50':
                         bot.send_message(member, 'Якщо світло вимикали, через пів години увімкнуть світло 💡')
+
+            print(f'end send to member: {member}')
 
         sleep(30)
 
