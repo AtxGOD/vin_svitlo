@@ -140,7 +140,7 @@ def reload_list(message):
 def send_reminder():
     while True:
         for member in MEMBERS:
-            print(f'start send to member: {member}')
+            # print(f'start send to member: {member}')
             today = datetime.today() + timedelta(hours=3)
             res = ''
             try:
@@ -163,6 +163,7 @@ def send_reminder():
             result_dict, result = False, False
 
             if today.minute % 10 == 0:
+                print(f'Перевірка чи графік змінився для: {member}')
                 result_dict, result = load_disconnects(MEMBERS[member][1])
                 if date_log != f"{today.day}.{today.month}" or disconnections != result:
                     f = open(MEMBERS[member][0] + ".txt", "w")
@@ -174,6 +175,7 @@ def send_reminder():
                     bot.send_message(member, result)
 
             if today.minute == 30:
+                print(f'Перевірка чи світло вимкнуть для: {member}')
                 if not result_dict:
                     result_dict, result = load_disconnects(MEMBERS[member][1])
                 if int(date_log.split('.')[0]) == today.day and today.hour != 23:
@@ -197,7 +199,6 @@ def send_reminder():
                     elif status_before == 'disconnect_50':
                         bot.send_message(member, 'Якщо світло вимикали, через пів години увімкнуть світло 💡')
 
-            print(f'end send to member: {member}')
 
         sleep(30)
 
